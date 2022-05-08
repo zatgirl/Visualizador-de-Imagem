@@ -5,7 +5,7 @@
 
 class Img{
     int altura, largura;
-    int x, y;
+    int x, y, outroX, outroY;
     unsigned char* pixel;
     int imagem[200][200];
 public:
@@ -15,16 +15,24 @@ public:
     Img(int _altura, int _largura, int _iniciox, int _inicioy, unsigned char* _pixel){
         altura = _altura;
         largura = _largura;
-        x = 290;
-        y = 20;
+        outroX = _iniciox;
+        outroY = _inicioy;
         pixel = _pixel;
     }
 
+    int getStartX (int _StartX){
+        return outroX = _StartX;
+    }
+
+    int getStartY (int _StartY){
+        return outroY = _StartY;
+    }
+
     //Plota a imagem na tela
-    void View(){
+    void View(int _x, int _y){
         int idx = 0; //Var para pegar os valores r,g,b a de cada pixel a cada 3 pos.
         for(int linha = 0; linha < largura; linha++){
-            y = 290;
+            y = _y;
             for(int coluna = 0; coluna < altura; coluna++){
                 CV::color((float)(pixel[idx])/255.0, (float)(pixel[idx+1])/255.0, (float)(pixel[idx+2])/255.0);
                 idx += 3;
@@ -32,7 +40,7 @@ public:
                 y ++;
                // imagem[linha][coluna] =
             }  x ++;
-        } x = 20;
+        } x = _x;
     }
 
     //Plota o canal red da imagem na tela

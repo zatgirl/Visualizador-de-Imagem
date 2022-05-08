@@ -29,8 +29,8 @@
 #include "Histograma.h"
 #include "Vector2.h"
 
-#define DEFAULT_START_IMG_X 20
-#define DEFAULT_START_IMG_Y 290
+//#define DEFAULT_START_IMG_X 20
+//#define DEFAULT_START_IMG_Y 290
 
 Botao *orig = NULL; Botao *cr = NULL; Botao *cg = NULL; Botao *cb = NULL; Botao *gray = NULL; Botao *hist = NULL; Botao *rot = NULL; Botao *roll = NULL;
 Histograma *histograma[3];
@@ -42,12 +42,25 @@ int opcao  = 50;
 int screenWidth = 800, screenHeight = 500; //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
 int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da render().
 bool click=false;
-int op = 0, select = 0;
+int op = 0, select = 5;
+int DEFAULT_START_IMG_X = 20, DEFAULT_START_IMG_Y = 290;
 
+void moveImg();
 
 void render()
 {
+
+    //img[0].View(DEFAULT_START_IMG_X,DEFAULT_START_IMG_Y);
     interface();
+    moveImg();
+}
+
+void moveImg(){
+    if ((click == 1)&&(img[0].ColidiuImg(mouseX,mouseY==true))){
+        //DEFAULT_START_IMG_Y = mouseY, DEFAULT_START_IMG_Y = mouseY;
+        img[0].View(mouseX,mouseY);
+        //img[0] = Img(bmp[0]->getHeight(), bmp[0]->getWidth(), DEFAULT_START_IMG_X, DEFAULT_START_IMG_Y, data[0]);
+    }
 }
 
 void interface(){
@@ -94,7 +107,7 @@ void interface(){
         case 2: img[op].ViewGreen();  histograma[op]->ViewHistogramaG();       break;
         case 3: img[op].ViewBlue();   histograma[op]->ViewHistogramaB();       break;
         case 4: img[op].ViewGray();   histograma[op]->ViewHistogramaGray();    break;
-        case 5: img[op].View();       histograma[op]->ViewHistogramaRGB();     break;
+        //case 5: img[op].View(DEFAULT_START_IMG_X,DEFAULT_START_IMG_Y);       histograma[op]->ViewHistogramaRGB();     break;
         //case 6: img[op].ViewRot();                                             break;
     }
 
@@ -124,7 +137,7 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
    //printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 
-   if( state == 1 ) //clicou
+   if( state == -2 ) //clicou
    {
         click = true;
    }

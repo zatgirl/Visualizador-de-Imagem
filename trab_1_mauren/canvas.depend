@@ -70,3 +70,74 @@
 	<cmath>
 	<cstring>
 
+1604604005 source:d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\bmp.cpp
+	"Bmp.h"
+	<string.h>
+
+1531759698 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\bmp.h
+	<stdio.h>
+	<stdlib.h>
+
+1589222603 source:d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1651765911 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"Vector2.h"
+
+1426372440 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\include\gl\glut.h
+	"freeglut_std.h"
+
+1437579942 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426372440 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1589217858 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\vector2.h
+
+1651991252 source:d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\main.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	"gl_canvas2d.h"
+	"Interface.h"
+	"Botao.h"
+	"Bmp.h"
+	"Draw.h"
+	"Histograma.h"
+	"Vector2.h"
+
+1651685320 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\interface.h
+	"gl_canvas2d.h"
+
+1651692372 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\botao.h
+	"gl_canvas2d.h"
+
+1651985909 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\draw.h
+	"gl_canvas2d.h"
+
+1651717649 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\histograma.h
+	"gl_canvas2d.h"
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cmath>
+	<cstring>
+
