@@ -9,7 +9,7 @@
 #include <cstring>
 
 class Histograma{
-    int x, y, altura, largura;
+    int x, y, altura, largura, valMax;
     unsigned char* data;
     int r[255], g[255], b[255];
 
@@ -81,12 +81,12 @@ public:
     }
 
     void ViewHistogramaB(){
-        int temp, valMax;
+        int temp;
         temp = x;
         CV::color(1,1,1);
         CV::rectFill(x,y,largura,altura);
         for(int i = 0; i < 256; i++){
-            if (valMax < b[i]){
+            if (valMax < b[i]) {
                 valMax = b[i];
             }
             CV::color(0,0,1);
@@ -96,7 +96,7 @@ public:
     }
 
     void ViewHistogramaGray(){
-        int xini, convgray[255], valMaxY;
+        int xini, convgray[254];
         xini = x;
         CV::color(1,1,1);
         CV::rectFill(x,y,largura,altura);
