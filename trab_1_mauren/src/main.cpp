@@ -29,8 +29,8 @@
 #include "Histograma.h"
 #include "Vector2.h"
 
-//#define DEFAULT_START_IMG_X 20
-//#define DEFAULT_START_IMG_Y 290
+//#define DEFAULT_START_IMG_X 290
+//#define DEFAULT_START_IMG_Y 20
 
 Botao *orig = NULL; Botao *cr = NULL; Botao *cg = NULL; Botao *cb = NULL; Botao *gray = NULL; Botao *hist = NULL; Botao *rot = NULL; Botao *roll = NULL;
 Histograma *histograma[3];
@@ -42,24 +42,32 @@ int opcao  = 50;
 int screenWidth = 800, screenHeight = 500; //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
 int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da render().
 bool click=false;
-int op = 0, select = 5;
-int DEFAULT_START_IMG_X = 20, DEFAULT_START_IMG_Y = 290;
+int op = 0, select = 5, clicou = 0;
+int DEFAULT_START_IMG_X = 290, DEFAULT_START_IMG_Y = 20, SCALE = 1;
+bool ROT = 0;
 
 void moveImg();
 
 void render()
 {
-
+    /*if(click == true){
+        clicou = 1;
+    }
+    if ((img[op].ColidiuImg(mouseX,mouseY == true))&&(clicou == 1)){
+            DEFAULT_START_IMG_Y = mouseY-200, DEFAULT_START_IMG_Y = mouseY-200;
+            if(click == false){
+                clicou = 0;
+            }
+    }*/
     //img[0].View(DEFAULT_START_IMG_X,DEFAULT_START_IMG_Y);
     interface();
-    moveImg();
+
+    //moveImg();
 }
 
 void moveImg(){
-    if ((click == 1)&&(img[0].ColidiuImg(mouseX,mouseY==true))){
-        //DEFAULT_START_IMG_Y = mouseY, DEFAULT_START_IMG_Y = mouseY;
-//        img[0].View(mouseX,mouseY);
-        //img[0] = Img(bmp[0]->getHeight(), bmp[0]->getWidth(), DEFAULT_START_IMG_X, DEFAULT_START_IMG_Y, data[0]);
+    if ((click == 1)&&(img[op].ColidiuImg(mouseX,mouseY==true))){
+        DEFAULT_START_IMG_Y = mouseY-200, DEFAULT_START_IMG_Y = mouseY-200;
     }
 }
 
@@ -99,6 +107,10 @@ void interface(){
             }
         }click = false;
     }
+    /*if ((click == true)&&(img[op].ColidiuImg(mouseX,mouseY==true))){
+        DEFAULT_START_IMG_Y = mouseY-200, DEFAULT_START_IMG_Y = mouseY-200;
+        printf("foi");
+    }*/
     //Desenha a banda selecionada e o histograma
     histograma[op] = new Histograma(5,20,280,260,bmp[op]->getImage());
     switch(select){
@@ -109,7 +121,7 @@ void interface(){
         case 5: img[op].RGBChoice(true);    histograma[op]->RGBChoice(true);     break;
         //case 6: img[op].ViewRot();                                             break;
     }
-    img[op].ViewImg();
+    img[op].ViewImg(DEFAULT_START_IMG_X, DEFAULT_START_IMG_Y, SCALE, ROT);
     histograma[op]->ViewHistograma();
 
 }
@@ -118,9 +130,9 @@ void interface(){
 void keyboard(int key)
 {
    printf("\nTecla: %d" , key);
-   if( key < 200 )
+   if( key == 95 )
    {
-      opcao = key;
+      click == true;
    }
 }
 
@@ -136,11 +148,20 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
    mouseX = x; //guarda as coordenadas do mouse para exibir dentro da render()
    mouseY = y;
 
-   //printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
+   printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 
    if( state == 0 ) //clicou
    {
-        click = true;
+       click = true;
+        //do{
+            //if ((img[op].ColidiuImg(mouseX,mouseY == true))&&(state = -2)){
+            //    DEFAULT_START_IMG_Y = mouseY-200, DEFAULT_START_IMG_Y = mouseY-200;
+           // }
+        //}while (state == 1);
+
+   }
+   if ((img[op].ColidiuImg(mouseX,mouseY == true))&&(state = -2)){
+                DEFAULT_START_IMG_Y = mouseY-200, DEFAULT_START_IMG_Y = mouseY-200;
    }
 }
 

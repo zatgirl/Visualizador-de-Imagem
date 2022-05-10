@@ -6,7 +6,7 @@
 
 
 class Img{
-    int altura, largura, scale = 1;
+    int altura, largura, scale =1;
     int x, y, outroX, outroY;
     unsigned char* pixel;
     int imagem[200][200];
@@ -35,11 +35,11 @@ public:
         return outroY = _StartY;
     }
 
-    void ViewImg(int _x, int _y, int _scale){
+    void ViewImg(int _x, int _y, int _scale, bool _rot){
         int idx = 0;
-            y = 20;
+            y = _y;
             for(int linha = 0; linha < largura; linha++){
-                x = 290;
+                x = _x;
                 for(int coluna = 0; coluna < altura; coluna++){
                     if(rgb == true){
                         CV::color((float)(pixel[idx])/255.0, (float)(pixel[idx+1])/255.0, (float)(pixel[idx+2])/255.0);
@@ -110,7 +110,8 @@ public:
 
     bool ColidiuImg(int mx, int my)
     {
-        if( mx >= x && mx <= (x + largura) && my >= y && my <= (y + altura) )
+        printf("collider");
+        if( mx >= x && mx <= (x + (float)largura) && my >= y && my <= (y + (float)altura) )
         {
             return true;
         }
