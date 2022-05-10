@@ -58,7 +58,7 @@ void render()
 void moveImg(){
     if ((click == 1)&&(img[0].ColidiuImg(mouseX,mouseY==true))){
         //DEFAULT_START_IMG_Y = mouseY, DEFAULT_START_IMG_Y = mouseY;
-        img[0].View(mouseX,mouseY);
+//        img[0].View(mouseX,mouseY);
         //img[0] = Img(bmp[0]->getHeight(), bmp[0]->getWidth(), DEFAULT_START_IMG_X, DEFAULT_START_IMG_Y, data[0]);
     }
 }
@@ -100,16 +100,17 @@ void interface(){
         }click = false;
     }
     //Desenha a banda selecionada e o histograma
-    histograma[op] = new Histograma(15,20,289,260,bmp[op]->getImage());
-    histograma[op]->HistogramaRGB();
+    histograma[op] = new Histograma(5,20,280,260,bmp[op]->getImage());
     switch(select){
-        case 1: img[op].ViewRed();    histograma[op]->ViewHistogramaR();       break;
-        case 2: img[op].ViewGreen();  histograma[op]->ViewHistogramaG();       break;
-        case 3: img[op].ViewBlue();   histograma[op]->ViewHistogramaB();       break;
-        case 4: img[op].ViewGray();   histograma[op]->ViewHistogramaGray();    break;
-        //case 5: img[op].View(DEFAULT_START_IMG_X,DEFAULT_START_IMG_Y);       histograma[op]->ViewHistogramaRGB();     break;
+        case 1: img[op].RedChoice(true);    histograma[op]->RedChoice(true);     break;
+        case 2: img[op].GreenChoice(true);  histograma[op]->GreenChoice(true);   break;
+        case 3: img[op].BlueChoice(true);   histograma[op]->BlueChoice(true);    break;
+        case 4: img[op].GrayChoice(true);   histograma[op]->GrayChoice(true);    break;
+        case 5: img[op].RGBChoice(true);    histograma[op]->RGBChoice(true);     break;
         //case 6: img[op].ViewRot();                                             break;
     }
+    img[op].ViewImg();
+    histograma[op]->ViewHistograma();
 
 }
 
@@ -137,7 +138,7 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
    //printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 
-   if( state == -2 ) //clicou
+   if( state == 0 ) //clicou
    {
         click = true;
    }
