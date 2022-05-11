@@ -19,7 +19,7 @@ public:
     //Desenha os botões
     void Draw(){
         CV::color(r,g,b); CV::rectFill(x, y, x+largura, y+altura);
-        CV::color(0,0,0); CV::text(x+(largura/3), y+(altura/3), label);
+        CV::color(0,0,0); CV::text(x+(largura/4), y+(altura/3), label);
     }
 
     //recebe as coordenadas do mouse para tratar clique ou detectar quando o mouse esta em cima do botao

@@ -32,19 +32,29 @@
 //#define DEFAULT_START_IMG_X 290
 //#define DEFAULT_START_IMG_Y 20
 
-Botao *orig = NULL; Botao *cr = NULL; Botao *cg = NULL; Botao *cb = NULL; Botao *gray = NULL; Botao *hist = NULL; Botao *rot = NULL; Botao *roll = NULL;
+Botao *orig = NULL;
+Botao *cr = NULL;
+Botao *cg = NULL;
+Botao *cb = NULL;
+Botao *gray = NULL;
+Botao *hist = NULL;
+Botao *rotClock = NULL;
+Botao *rotCounter = NULL;
+Botao *roll = NULL;
+Botao *scalMax = NULL;
+Botao *scalMin = NULL;
 Histograma *histograma[3];
 Bmp *bmp[3];
 Img img[3];
 
 //variavel global para selecao do que sera exibido na canvas.
 int opcao  = 50;
-int screenWidth = 800, screenHeight = 500; //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
+int screenWidth = 1000, screenHeight = 500; //largura e altura inicial da tela . Alteram com o redimensionamento de tela.
 int mouseX, mouseY; //variaveis globais do mouse para poder exibir dentro da render().
 bool click=false;
 int op = 0, select = 5, clicou = 0;
-int DEFAULT_START_IMG_X = 290, DEFAULT_START_IMG_Y = 20, SCALE = 1;
-bool ROT = 0;
+int DEFAULT_START_IMG_X = (screenWidth/6)*3, DEFAULT_START_IMG_Y = 20, SCALE = 1;
+bool ROTCLOCK = 0, ROTCOUNTER = 0;
 
 void moveImg();
 
@@ -73,25 +83,31 @@ void moveImg(){
 
 void interface(){
     //Painel de fundo
-    CV::color(0,0,0);
+    CV::color(0.8705,0.8705,0.8705);
     CV::rectFill(0,0,screenWidth,screenHeight);
     //Criação dos botões
     cr = new Botao(1*(screenWidth/6)-100,7*(screenHeight/8),120,45,"RED",1,0,0);
     cr->Draw();
     cg = new Botao(2*(screenWidth/6)-100,7*(screenHeight/8),120,45,"GREEN",0,1,0);
     cg->Draw();
-    cb = new Botao(3*(screenWidth/6)-100,7*(screenHeight/8),120,45,"BLUE",0,0,1);
+    cb = new Botao(3*(screenWidth/6)-100,7*(screenHeight/8),120,45,"BLUE",0.4078,0.4705,0.8627);
     cb->Draw();
     gray = new Botao(4*(screenWidth/6)-100,7*(screenHeight/8),120,45,"GRAY",0.5,0.5,0.5);
     gray->Draw();
-    roll = new Botao(5*(screenWidth/6)-100,7*(screenHeight/8),120,45,"TROCAR",1,0,1);
+    roll = new Botao(3*(screenWidth/6)-100,6*(screenHeight/8),120,45,"TROCAR",1,0,1);
     roll->Draw();
-    rot = new Botao(1*(screenWidth/6)-100,6*(screenHeight/8),120,45,"GIRAR",1,0.5,0);
-    rot->Draw();
-    orig = new Botao(1*(screenWidth/6)-100,5*(screenHeight/8),120,45,"ORIGINAL",0.5,0.5,0);
+    rotClock = new Botao(1*(screenWidth/6)-100,6*(screenHeight/8),120,45,"GIRAR <",1,0.5,0);
+    rotClock->Draw();
+    rotCounter = new Botao(1*(screenWidth/6)-100,5*(screenHeight/8),120,45,"GIRAR >",1,0.5,0);
+    rotCounter->Draw();
+    orig = new Botao(5*(screenWidth/6)-100,7*(screenHeight/8),120,45,"ORIGINAL",0.5,0.5,0);
     orig->Draw();
+    scalMax = new Botao(2*(screenWidth/6)-100,6*(screenHeight/8),120,45,"ESCALAR-",0.8235,0.4392,0.8823);
+    scalMax->Draw();
+    scalMin = new Botao(2*(screenWidth/6)-100,5*(screenHeight/8),120,45,"ESCALAR+",0.8235,0.4392,0.8823);
+    scalMin->Draw();
     //Testa se algum botão foi acionado
-    Botao *botoes[] = {cr,cg,cb,gray,orig,rot};
+    Botao *botoes[] = {cr,cg,cb,gray,orig,rotClock,rotCounter,scalMax,scalMin};
     if(click == true){
         for(int i = 0; i<6; i++){
             if(botoes[i]->Colidiu(mouseX, mouseY)){
@@ -106,13 +122,26 @@ void interface(){
                 op = 0; click = false;
             }
         }click = false;
+        if(rotClock->Colidiu(mouseX, mouseY)==true){
+                printf("clocou");
+            ROTCLOCK = 1;
+        }
+        if(rotCounter->Colidiu(mouseX, mouseY)==true){
+            ROTCOUNTER = 1;
+        }
+        if(scalMax->Colidiu(mouseX, mouseY)==true){
+            SCALE = 2;
+        }
+        if(scalMin->Colidiu(mouseX, mouseY)==true){
+            SCALE = 1;
+        }
     }
     /*if ((click == true)&&(img[op].ColidiuImg(mouseX,mouseY==true))){
         DEFAULT_START_IMG_Y = mouseY-200, DEFAULT_START_IMG_Y = mouseY-200;
         printf("foi");
     }*/
     //Desenha a banda selecionada e o histograma
-    histograma[op] = new Histograma(5,20,280,260,bmp[op]->getImage());
+    histograma[op] = new Histograma(1*(screenWidth/6)-100,20,(1*(screenWidth/6)-100)+275,260,bmp[op]->getImage());
     switch(select){
         case 1: img[op].RedChoice(true);    histograma[op]->RedChoice(true);     break;
         case 2: img[op].GreenChoice(true);  histograma[op]->GreenChoice(true);   break;
@@ -121,7 +150,9 @@ void interface(){
         case 5: img[op].RGBChoice(true);    histograma[op]->RGBChoice(true);     break;
         //case 6: img[op].ViewRot();                                             break;
     }
-    img[op].ViewImg(DEFAULT_START_IMG_X, DEFAULT_START_IMG_Y, SCALE, ROT);
+    DEFAULT_START_IMG_X = img[op].setNewStartX();
+    DEFAULT_START_IMG_Y = img[op].setNewStartY();
+    img[op].ViewImg(DEFAULT_START_IMG_X, DEFAULT_START_IMG_Y, SCALE, ROTCLOCK, ROTCOUNTER);
     histograma[op]->ViewHistograma();
 
 }
@@ -148,7 +179,7 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
    mouseX = x; //guarda as coordenadas do mouse para exibir dentro da render()
    mouseY = y;
 
-   printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
+   //printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 
    if( state == 0 ) //clicou
    {
@@ -160,9 +191,10 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
         //}while (state == 1);
 
    }
-   if ((img[op].ColidiuImg(mouseX,mouseY == true))&&(state = -2)){
-                DEFAULT_START_IMG_Y = mouseY-200, DEFAULT_START_IMG_Y = mouseY-200;
-   }
+   /*if ((img[op].ColidiuImg(mouseX,mouseY) == true)&&(state = -2)){
+        img[op].ViewImg(DEFAULT_START_IMG_X-200, DEFAULT_START_IMG_Y-200, SCALE, ROT);
+        //printf("col: %s", img[op].ColidiuImg(mouseX,mouseY)?"true":"false");
+    }*/
 }
 
 int main(void)

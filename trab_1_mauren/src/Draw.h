@@ -35,9 +35,36 @@ public:
         return outroY = _StartY;
     }
 
-    void ViewImg(int _x, int _y, int _scale, bool _rot){
+    void ViewImg(int _x, int _y, int _scale, bool _rotClock, bool _rotCounterClock){
         int idx = 0;
+        bool clockwize = false, counterclockwize = false, defaul = true;
+            if(_rotClock == true){
+                counterclockwize = false;
+                clockwize = true;
+                defaul = false;
+                x = _y;
+                y = _x;
+                printf("ent");
+            }
+            if(_rotClock == true){
+                counterclockwize = true;
+                clockwize = false;
+                defaul = false;
+                x = _y;
+                y = _x;
+            }
+            if((_rotCounterClock == false)&&(_rotClock == false)){
+                counterclockwize = false;
+                clockwize = false;
+                defaul = true;
+                x = _x;
+                y = _y;
+            }
+            if (_scale != scale){
+                scale = _scale;
+            }
             y = _y;
+
             for(int linha = 0; linha < largura; linha++){
                 x = _x;
                 for(int coluna = 0; coluna < altura; coluna++){
@@ -57,10 +84,24 @@ public:
                         grayScale = (0.3*((float)(pixel[idx])/255.0)) + (0.59*((float)(pixel[idx+1])/255.0))+ (0.11*((float)(pixel[idx+2])/255.));
                         CV::color(grayScale, grayScale, grayScale);
                     }
-                    CV::rectFill(coluna+x, linha+y, coluna+x+2, linha+y+2);
+                    if(defaul == true){
+                        CV::rectFill(coluna+x, linha+y, coluna+x+2, linha+y+2);
+                    }
+                    if(clockwize == true){
+                        CV::rectFill(linha+y, coluna+x, linha+y+2, coluna+x+2);
+                        printf("ent");
+                        Sleep(10);
+                    }
                     idx +=3; x +=scale;
                 }   y += scale;
             }   idx = 0;
+    }
+
+    int setNewStartX (){
+        return x;
+    }
+    int setNewStartY (){
+        return y;
     }
 
     void RedChoice(bool _red){
@@ -110,7 +151,7 @@ public:
 
     bool ColidiuImg(int mx, int my)
     {
-        printf("collider");
+        //printf("collider");
         if( mx >= x && mx <= (x + (float)largura) && my >= y && my <= (y + (float)altura) )
         {
             return true;

@@ -58,7 +58,11 @@ public:
         SplitBands();
         int temp;
         temp = x;
-        CV::color(1,1,1);
+        CV::color(0.2941,0.3058,0.3921);
+        CV::rectFill(x,altura,largura,altura+30);
+        CV::color(0,0,0);
+        CV::text(x+15, altura+11, "HISTOGRAMA");
+        CV::color(0.7294,0.7294,0.7294);
         CV::rectFill(x,y,largura,altura);
         for(int i = 0; i <= 255; i++){
             if (red == true){

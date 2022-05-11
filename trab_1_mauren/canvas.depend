@@ -110,7 +110,7 @@
 
 1589217858 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\vector2.h
 
-1652084203 source:d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\main.cpp
+1652238906 source:d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\main.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	<math.h>
@@ -127,14 +127,14 @@
 1651685320 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\interface.h
 	"gl_canvas2d.h"
 
-1651692372 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\botao.h
+1652238736 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\botao.h
 	"gl_canvas2d.h"
 
-1652085082 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\draw.h
+1652239015 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\draw.h
 	"gl_canvas2d.h"
 	"Histograma.h"
 
-1652084505 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\histograma.h
+1652236871 d:\documentos\github\visualizador-de-imagem\trab_1_mauren\src\histograma.h
 	"gl_canvas2d.h"
 	<iostream>
 	<cstdlib>
