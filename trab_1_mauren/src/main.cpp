@@ -102,9 +102,9 @@ void interface(){
     rotCounter->Draw();
     orig = new Botao(5*(screenWidth/6)-100,7*(screenHeight/8),120,45,"ORIGINAL",0.5,0.5,0);
     orig->Draw();
-    scalMax = new Botao(2*(screenWidth/6)-100,6*(screenHeight/8),120,45,"ESCALAR-",0.8235,0.4392,0.8823);
+    scalMax = new Botao(2*(screenWidth/6)-100,6*(screenHeight/8),120,45,"ESCALAR+",0.8235,0.4392,0.8823);
     scalMax->Draw();
-    scalMin = new Botao(2*(screenWidth/6)-100,5*(screenHeight/8),120,45,"ESCALAR+",0.8235,0.4392,0.8823);
+    scalMin = new Botao(2*(screenWidth/6)-100,5*(screenHeight/8),120,45,"ESCALAR-",0.8235,0.4392,0.8823);
     scalMin->Draw();
     //Testa se algum botão foi acionado
     Botao *botoes[] = {cr,cg,cb,gray,orig,rotClock,rotCounter,scalMax,scalMin};
@@ -123,17 +123,18 @@ void interface(){
             }
         }click = false;
         if(rotClock->Colidiu(mouseX, mouseY)==true){
-                printf("clocou");
             ROTCLOCK = 1;
+            DEFAULT_START_IMG_X = img[op].setNewStartX();
+            DEFAULT_START_IMG_Y = img[op].setNewStartY();
         }
         if(rotCounter->Colidiu(mouseX, mouseY)==true){
             ROTCOUNTER = 1;
         }
         if(scalMax->Colidiu(mouseX, mouseY)==true){
-            SCALE = 2;
+            SCALE = SCALE+1;
         }
         if(scalMin->Colidiu(mouseX, mouseY)==true){
-            SCALE = 1;
+            SCALE = SCALE-1;
         }
     }
     /*if ((click == true)&&(img[op].ColidiuImg(mouseX,mouseY==true))){
@@ -150,8 +151,7 @@ void interface(){
         case 5: img[op].RGBChoice(true);    histograma[op]->RGBChoice(true);     break;
         //case 6: img[op].ViewRot();                                             break;
     }
-    DEFAULT_START_IMG_X = img[op].setNewStartX();
-    DEFAULT_START_IMG_Y = img[op].setNewStartY();
+
     img[op].ViewImg(DEFAULT_START_IMG_X, DEFAULT_START_IMG_Y, SCALE, ROTCLOCK, ROTCOUNTER);
     histograma[op]->ViewHistograma();
 

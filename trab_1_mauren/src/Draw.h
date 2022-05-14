@@ -85,7 +85,7 @@ public:
                         CV::color(grayScale, grayScale, grayScale);
                     }
                     if(defaul == true){
-                        CV::rectFill(coluna+x, linha+y, coluna+x+2, linha+y+2);
+                        CV::rectFill(coluna+x, linha+y, coluna+x+8, linha+y+8);
                     }
                     if(clockwize == true){
                         CV::rectFill(linha+y, coluna+x, linha+y+2, coluna+x+2);
